@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Federación Internacional de Juegos Olímpicos</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <meta name="description" content="Federación Internacional de Juegos Olímpicos — promoción, calendario y noticias.">
+
+    <style>
+    :root{
+        --bg:#f7f8fb;
+        --card:#ffffff;
+        --primary:#0b5ed7; /* color principal (azul) */
+        --muted:#6b7280;
+        --accent:#ffb703;
+        --radius:12px;
+        --maxw:1100px;
+        --glass: rgba(255,255,255,0.7);
+        font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+        margin:0;
+        background:linear-gradient(180deg,#eef3ff 0%,var(--bg) 100%);
+        color:#0f1724;
+        -webkit-font-smoothing:antialiased;
+        -moz-osx-font-smoothing:grayscale;
+        line-height:1.4;
+    }
+
+    .container{
+        width:calc(100% - 32px);
+        max-width:var(--maxw);
+        margin:0 auto;
+        padding:24px;
+    }
+
+    /* NAV */
+    header{
+        position:sticky;
+        top:12px;
+        z-index:100;
+        margin-bottom:18px;
+        backdrop-filter: blur(6px);
+    }
+    .nav{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:16px;
+        background:transparent;
+        padding:10px;
+        border-radius:14px;
+    }
+    .brand{
+        display:flex;
+        align-items:center;
+        gap:12px;
+        text-decoration:none;
+    color:inherit;
+    }
+    .logo{
+        width:52px;height:52px;border-radius:10px;
+        background:linear-gradient(135deg,var(--primary),#4f46e5);
+        display:flex;align-items:center;justify-content:center;color:white;font-weight:700;
+        box-shadow:0 6px 18px rgba(11,94,215,0.15);
+        flex-shrink:0;
+    }
+    .brand h1{font-size:1rem;margin:0}
+    nav ul{
+        list-style:none;padding:0;margin:0;display:flex;gap:18px;align-items:center;
+    }
+    nav a{color:inherit;text-decoration:none;font-weight:600}
+    .cta{
+        background:var(--primary);color:white;padding:8px 14px;border-radius:10px;
+        font-weight:700;box-shadow:0 6px 18px rgba(11,94,215,0.12);
+    }
+
+    /* Mobile */
+    .menu-toggle{display:none}
+    @media (max-width:800px){
+        nav ul{display:none}
+        .menu-toggle{display:inline-flex;align-items:center;gap:8px;background:var(--card);border-radius:10px;padding:8px;cursor:pointer}
+    }
+
+    /* HERO */
+    .hero{
+        display:grid;
+        grid-template-columns:1fr 420px;
+        gap:28px;
+        align-items:center;
+        margin-bottom:28px;
+    }
+    .hero-card{
+        background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
+        border-radius:var(--radius); padding:32px; box-shadow: 0 8px 30px rgba(16,24,40,0.06);
+    }
+    .kicker{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(11,94,215,0.08);color:var(--primary);font-weight:700;font-size:0.8rem}
+    .hero h2{margin:12px 0 8px;font-size:2rem}
+    .hero p{color:var(--muted);margin:0 0 18px}
+
+    .hero-actions{
+        display:flex;
+        gap:12px;
+        flex-wrap:wrap
+    }
+    .btn{
+        padding:10px 14px;
+        border-radius:10px;
+        border:0;
+        cursor:pointer;
+        font-weight:700
+    }
+    .btn-outline{
+        background:transparent;
+        border:2px solid var(--primary);
+        color:var(--primary)
+    }
+    .btn-primary{
+        background:var(--primary);
+        color:white
+    }
+
+    /* Right column: highlights/cards */
+    .stats{display:grid;gap:12px}
+    .stat{
+        background:var(--card);padding:14px;border-radius:12px;display:flex;align-items:center;gap:12px;
+        box-shadow:0 6px 18px rgba(15,23,36,0.04);
+    }
+    .stat strong{font-size:1.2rem;display:block}
+    .stat small{color:var(--muted);display:block}
+
+    /* SECTIONS */
+    section{margin-bottom:26px}
+    .grid-3{
+        display:grid;
+        grid-template-columns:repeat(3,1fr);
+        gap:18px;
+    }   
+    .card{
+        background:var(--card);padding:16px;border-radius:14px;box-shadow:0 6px 18px rgba(2,6,23,0.03);
+    }
+    .card h3{margin:0 0 8px}
+    .card p{margin:0;color:var(--muted)}
+
+    /* Events list */
+    .events{display:flex;flex-direction:column;gap:10px}
+    .event{display:flex;gap:16px;align-items:center;padding:12px;border-radius:12px;background:linear-gradient(90deg,#fff,#fbfdff);border:1px solid rgba(11,94,215,0.04)}
+    .event time{min-width:110px;font-weight:700;color:var(--primary)}
+    .event .place{color:var(--muted)}
+
+    /* News grid */
+    .news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .news-card img{width:100%;height:150px;object-fit:cover;border-radius:10px}
+
+    /* Footer */
+    footer{padding:22px 0;color:var(--muted);font-size:0.9rem}
+    .footer-grid{display:flex;gap:24px;flex-wrap:wrap;justify-content:space-between}
+
+    /* Responsive tweaks */
+    @media (max-width:1100px){
+        .hero{grid-template-columns:1fr 320px}
+    }
+    @media (max-width:900px){
+        .hero{grid-template-columns:1fr}
+        .grid-3{grid-template-columns:repeat(2,1fr)}
+        .news-grid{grid-template-columns:repeat(2,1fr)}
+        .stat{justify-content:space-between}
+    }
+    @media (max-width:600px){
+        .grid-3{grid-template-columns:1fr}
+        .news-grid{grid-template-columns:1fr}
+        .stat{flex-direction:column;align-items:flex-start}
+        .logo{width:44px;height:44px}
+        .brand h1{font-size:0.9rem}
+    }
+    .discord-form {
+        padding:25px 5px;
+        display: flex;
+        justify-content: center;
+    }
+    </style>
+</head>
+<body>
+    <header class="container" aria-label="Encabezado">
+        <div class="nav" role="navigation" aria-label="Navegación principal">
+            <a href="#" class="brand" aria-label="Inicio - Federación Internacional de Juegos Olímpicos">
+                <div class="logo" aria-hidden="true">FIJO</div>
+                <div>
+                    <h1>Federación Internacional</h1>
+                    <div style="font-size:0.85rem;color:var(--muted)">Juegos Olímpicos</div>
+                </div>
+            </a>
+
+            <nav aria-label="Enlaces principales">
+                <ul>
+                    <li><a href="#about">Sobre</a></li>
+                    <li><a href="#deportes">Deportes</a></li>
+                    <li><a href="#calendario">Calendario</a></li>
+                    <!--<li><a href="#noticias">Noticias</a></li>-->
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+
+            <div style="display:flex;align-items:center;gap:12px">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScr7Cb7W-ozKPYRo0kXYQdLrm8U8I1-7kNvEYkczC47uBUHfg/viewform?usp=dialog" class="cta" target="_blank">Inscríbete</a>
+                <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileMenu">
+                    ☰ Menú
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobileMenu" style="display:none;margin-top:12px">
+            <nav>
+                <ul style="display:flex;flex-direction:column;gap:8px">
+                    <li><a href="#about">Sobre</a></li>
+                    <li><a href="#deportes">Deportes</a></li>
+                    <li><a href="#calendario">Calendario</a></li>
+                    <!--<li><a href="#noticias">Noticias</a></li>-->
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container" id="main" tabindex="-1">
+    <!-- HERO -->
+   
+
+    <!-- Sobre -->
+    <section id="about" aria-labelledby="aboutTitle">
+        <div class="card">
+            <h3 id="aboutTitle">Sobre la Federación</h3>
+            <p>La Federación Internacional de Juegos Olímpicos (F.I.J.O) es una organización dedicada a la promoción del deporte, la unidad y los valores olímpicos a nivel global. A través de la organización de competencias y eventos, su misión es fomentar la sana competencia, el espíritu de equipo y la superación personal en un ambiente de compañerismo internacional.</p>
+        </div>
+    </section>
+
+    <!-- Deportes -->
+    <section id="deportes" aria-labelledby="deportesTitle">
+        <h2 id="deportesTitle" style="margin-bottom:12px">Deportes reconocidos</h2>
+        <div class="grid-3">
+            <article class="card" aria-labelledby="dep1">
+                <h3 id="dep1">Largos-Natación</h3>
+                <p>Prueba de natación en la que se recorren varios largos de piscina lo más rápido posible, manteniendo técnica y resistencia.</p>
+            </article>
+            <article class="card" aria-labelledby="dep2">
+                <h3 id="dep2">Patata caliente</h3>
+                <p>Juego en el que los participantes se pasan un globos de agua rápidamente para que no les explote en las manos cuando se acabe el tiempo.</p>
+            </article>
+            <article class="card" aria-labelledby="dep3">
+                <h3 id="dep3">Búsqueda del tesoro</h3>
+                <p>Actividad en la que los participantes siguen pistas o resuelven acertijos para encontrar un objeto oculto, compitiendo por ser los primeros en hallarlo .</p>
+            </article>
+            
+
+            <article class="card" aria-labelledby="dep4">
+                <h3 id="dep4">Tiro con arco</h3>
+                <p>Deporte en el que se dispara flechas con un arco hacia un blanco, buscando la mayor precisión posible para sumar puntos.</p>
+            </article>
+            <article class="card" aria-labelledby="dep5">
+                <h3 id="dep5">Yoga</h3>
+                <p>Práctica física y mental que combina posturas, respiración y relajación para mejorar la flexibilidad, la fuerza y el bienestar general.</p>
+            </article>
+            <article class="card" aria-labelledby="dep6">
+                <h3 id="dep6">Escondite</h3>
+                <p>Juego en el que uno cuenta con los ojos cerrados mientras los demás se esconden, y luego intenta encontrarlos antes de que lleguen a la base.</p>
+            </article>
+
+
+            <article class="card" aria-labelledby="dep7">
+                <h3 id="dep7">Dardos</h3>
+                <p>Juego de precisión en el que se lanzan dardos hacia una diana, intentando acertar en las zonas de maypr puntuación.</p>
+            </article>
+            <article class="card" aria-labelledby="dep8">
+                <h3 id="dep8">Salto de longitud</h3>
+                <p>Prueba atlética en la que el participante corre para tomar impulso y salta lo más lejos posible, intentando alcanzar la mayor distancia.</p>
+            </article>
+            <article class="card" aria-labelledby="dep9">
+                <h3 id="dep9">Gimnasia</h3>
+                <p>Disciplina deportiva que combina fuerza, flexibilidad y coordinación para realizar ejercicios acrobáticos y técnicos en distintos aparatos o sobre el suelo.</p>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- Calendario / Eventos -->
+    <section id="calendario" aria-labelledby="calTitle">
+        <h2 id="calTitle" style="margin-bottom:12px">Calendario de ediciones - F.I.J.O </h2>
+        <div class="card events" role="list">
+            <!-- Event items: actualiza fechas con tu calendario real -->
+            <div class="event" role="listitem">
+                <time datetime="2024-08-11">11 Ag 2024</time>
+                <div>
+                    <div style="font-weight:700">Primera Edición de <i>F.I.J.O</i><br>Vencedor: Rodrigo<br></div>
+                    <div class="place">Sevilla, España</div>
+                </div>
+            </div>
+
+            <div class="event" role="listitem">
+                <time datetime="2025-07-26">26 Jul 2025</time>
+                <div>
+                    <div style="font-weight:700">Segunda Edición de <i>F.I.J.O</i><br>Vencedor: Mederick</div>
+                    <div class="place">Sevilla, España</div>
+                </div>
+            </div>
+
+            <div class="event" role="listitem">
+                <time datetime="2025-08-09">09 Ag 2025</time>
+                <div>
+                    <div style="font-weight:700">Tercera Edición de <i>F.I.J.O</i><br>Vencedor: Olga</div>
+                    <div class="place">Sevilla, España</div>
+                </div>
+            </div>
+
+            <div class="event" role="listitem">
+                <time datetime="2025-08-23">23 Ag 2025</time>
+                <div>
+                    <div style="font-weight:700">Cuarta Edición de <i>F.I.J.O</i><br>Vencedor:</div>
+                    <div class="place">Sevilla, España</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Noticias -->
+    <!--<section id="noticias" aria-labelledby="newsTitle">
+        <h2 id="newsTitle" style="margin-bottom:12px">Últimas noticias</h2>
+        <div class="news-grid">
+            <article class="card news-card" aria-labelledby="n1">
+                <img src="https://images.unsplash.com/photo-1521412644187-c49fa049e84d?q=80&w=1200&auto=format&fit=crop&crop=faces" alt="Imagen evento deportivo">
+                <h3 id="n1">Acuerdo para ampliar el programa juvenil</h3>
+                <p>La Federación anuncia nuevas becas y circuitos formativos para atletas sub-20.</p>
+            </article>
+
+            <article class="card news-card" aria-labelledby="n2">
+                <img src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?q=80&w=1200&auto=format&fit=crop&crop=faces" alt="Imagen medallas">
+                <h3 id="n2">Reglamento actualizado 2025</h3>
+                <p>Publicamos las modificaciones al reglamento técnico para el próximo ciclo olímpico.</p>
+            </article>
+
+            <article class="card news-card" aria-labelledby="n3">
+                <img src="https://images.unsplash.com/photo-1526401281623-5c9d2f5bf0c6?q=80&w=1200&auto=format&fit=crop&crop=faces" alt="Imagen prensa deportiva">
+                <h3 id="n3">Inscripciones abiertas</h3>
+                <p>Plazos y requisitos para inscribir delegaciones en los torneos internacionales.</p>
+            </article>
+        </div>
+    </section>-->
+
+
+    <!-- Inscripción -->
+    <section id="inscripción" aria-labelledby="newsTitle">
+        <h2 id="newsTitle" style="margin-bottom:12px">Inscripción</h2>
+        <div class="card" style="display:flex;gap:18px;flex-wrap:wrap">
+            <article class="card news-card" aria-labelledby="n1">
+                
+                <h3 id="n1">Plazos para inscripciones</h3>
+                <p>Los plazos para las inscripcionen estarán en el discord oficial de <i>F.I.J.O</i>.</p>
+            </article>
+
+            <form class="discord-form" style="flex:1;min-width:260px; display: flex; justify-content:center;">
+                <button class="btn btn-primary" type="button" onclick="window.open('https://discord.gg/sPVqXqyjaW','_blank')">
+                    Ir a Discord
+                </button>
+            </form>
+
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contacto" aria-labelledby="contactTitle">
+        <h2 id="contactTitle" style="margin-bottom:12px">Contacto</h2>
+        <div class="card" style="display:flex;gap:18px;flex-wrap:wrap">
+            <div style="flex:1;min-width:260px">
+                <strong>Oficina central</strong>
+                <p style="margin-top:6px;color:var(--muted)"><strong>Dirección:</strong>Todavía nada aún.</p>
+                <p style="margin-top:6px;color:var(--muted)"><strong>Email:</strong> fijolimpiadas@gmail.com</p>
+                <p style="margin-top:6px;color:var(--muted)"><strong>WhatsApp:</strong> +34 633 17 41 71 </p>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="container" role="contentinfo">
+    <div class="footer-grid">
+        <div>
+            <strong>Federación Internacional de Juegos Olímpicos</strong>
+            <div style="margin-top:6px;color:var(--muted)">© <span id="year"></span> — Todos los derechos reservados</div>
+        </div>
+
+        <div style="display:flex;gap:12px;align-items:center">
+            <a href="#" style="text-decoration:none;color:var(--muted)">Política de privacidad</a>
+            <a href="#" style="text-decoration:none;color:var(--muted)">Términos</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Fecha en el footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn && menuBtn.addEventListener('click', () => {
+        const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+        menuBtn.setAttribute('aria-expanded', String(!expanded));
+        mobileMenu.style.display = expanded ? 'none' : 'block';
+    });
+
+    // Scroll to section helper
+    function scrollToSection(id){
+        const el = document.getElementById(id);
+        if(!el) return;
+        el.scrollIntoView({behavior:'smooth',block:'start'});
+        // focus for accessibility
+        setTimeout(()=> el.querySelector('h2, h3')?.focus?.(),400);
+    }
+
+    // Simple progressive enhancement: keyboard accessibility for nav links
+    document.querySelectorAll('nav a').forEach(a=>{
+        a.addEventListener('keydown', (e)=>{
+        if(e.key === 'Enter' || e.key === ' ') a.click();
+        });
+    });
+
+    // Example: replace placeholder stats with data from "API" (simulado)
+    // En producción, reemplaza con fetch('/api/stats') y actualiza DOM.
+    (function simulateStats(){
+        // simula retraso
+        setTimeout(()=>{
+            document.getElementById('stat1').textContent = '215';
+            document.getElementById('stat2').textContent = '48';
+            document.getElementById('stat3').textContent = '4,512';
+        },800);
+    })();
+    </script>
+</body>
+</html>
